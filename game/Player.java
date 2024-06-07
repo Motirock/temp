@@ -52,7 +52,7 @@ public class Player {
         onFloor = false;
         for (Rectangle obstacle : obstacles) {
             if (CollisionChecker.doesCollideCenteredRects(hitbox, obstacle)) {
-                handleCollision(hitbox, obstacle);
+                handleCollision(hitbox, vx, vy, obstacle);
             }
         }
 
@@ -76,7 +76,11 @@ public class Player {
         }
     }
 
-    public void handleCollision(Rectangle hitbox, Rectangle obstacle) {
+    //Requires the player to have vx and vy (velocity)
+    //Hitbox: hitbox of the player
+    //Obstacle: hitbox of the obstacle/platform
+    //This assumes the first rectangle is meant to move and the second one isn't
+    public void handleCollision(Rectangle hitbox, double vx, double vy, Rectangle obstacle) {
         int checkCount = 0;
         while (CollisionChecker.doesCollideCenteredRects(hitbox, obstacle) && checkCount < 10) {
             checkCount++;
